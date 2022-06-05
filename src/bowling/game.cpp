@@ -1,14 +1,15 @@
 #include "game.hpp"
+#include <numeric>
 
 namespace bowling
 {
     int Game::score()
     {
-        return _score;
+        return std::reduce(_rolls.begin(), _rolls.end());
     }
 
     void Game::roll(int roll)
     {
-        _score += roll;
+        _rolls.push_back(roll);
     }
 } // namespace bowling

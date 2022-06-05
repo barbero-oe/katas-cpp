@@ -1,12 +1,13 @@
 #pragma once
-// #include <vector>
+#include <vector>
 
 namespace bowling
 {
     class Game
     {
     private:
-    int _score = 0;
+    std::vector<int> _rolls;
+
     public:
         Game() {};
 
