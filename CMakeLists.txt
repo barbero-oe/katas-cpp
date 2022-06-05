@@ -19,7 +19,7 @@ list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 # Targets
 
 ## Program
-add_executable(katas src/main.cpp)
+add_library(katas src/main.cpp)
 target_compile_features(katas PRIVATE cxx_std_20)
 
 ## Tests
