@@ -8,6 +8,8 @@ namespace bowling
     private:
     std::vector<int> _rolls;
 
+    int frame_score(int);
+
     public:
         Game() {};
 

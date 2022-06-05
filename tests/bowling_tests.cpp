@@ -32,4 +32,17 @@ TEST_CASE("A new bowling game", "[bowling]")
         roll_times(game, 0, 17);
         REQUIRE(12 == game.score());
     }
+    SECTION("when a spare is made at the end then the score is 12") {
+        roll_times(game, 0, 18);
+        roll_times(game, 5, 2);
+        game.roll(1);
+        REQUIRE(11 == game.score());
+    }
+    // SECTION("when a strike is made then the score is 14") {
+    //     roll_times(game, 5, 2);
+    //     game.roll(1);
+    //     game.roll(1);
+    //     roll_times(game, 0, 17);
+    //     REQUIRE(14 == game.score());
+    // }
 }
