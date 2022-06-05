@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 
 project(katas-cpp
         VERSION 0.0.0
@@ -19,17 +19,19 @@ list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 # Targets
 
 ## Program
-add_library(katas $ENV{SOURCE_FILES})
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS src/*.[hc]pp)
+add_library(katas ${SOURCE_FILES})
 target_compile_features(katas PRIVATE cxx_std_20)
 if(MSVC)
   target_compile_options(katas PRIVATE /W4 /WX)
 else()
-  target_compile_options(katas PRIVATE -Wall -Wextra -Wpedantic -Werror)
+  target_compile_options(katas PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 ## Tests
-add_executable(tests tests/test.cpp)
-target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
+file(GLOB_RECURSE TEST_FILES CONFIGURE_DEPENDS tests/*.[hc]pp)
+add_executable(tests ${TEST_FILES})
+target_link_libraries(tests PRIVATE Catch2::Catch2WithMain katas)
 target_compile_features(tests PRIVATE cxx_std_20)
 
 include(CTest)
