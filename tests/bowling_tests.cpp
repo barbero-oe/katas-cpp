@@ -26,10 +26,10 @@ TEST_CASE("A new bowling game", "[bowling]")
         roll_times(game, 2, 20);
         REQUIRE(40 == game.score());
     }
-    // SECTION("when a spare is made then the score is 12") {
-    //     roll_times(game, 5, 2);
-    //     game.roll(1);
-    //     roll_times(game, 0, 17);
-    //     REQUIRE(12 == game.score());
-    // }
+    SECTION("when a spare is made then the score is 12") {
+        roll_times(game, 5, 2);
+        game.roll(1);
+        roll_times(game, 0, 17);
+        REQUIRE(12 == game.score());
+    }
 }

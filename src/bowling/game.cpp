@@ -5,7 +5,18 @@ namespace bowling
 {
     int Game::score()
     {
-        return std::reduce(_rolls.begin(), _rolls.end());
+        auto score = 0;
+        auto frame = _rolls.begin();
+        do
+        {
+            auto frame_score = *frame + *(frame + 1);
+            if (frame_score == 10)
+                frame_score += *(frame + 2);
+            score += frame_score;
+            frame += 2;
+        } while (frame != _rolls.end());
+        
+        return score;
     }
 
     void Game::roll(int roll)
