@@ -8,51 +8,48 @@ namespace bowling
     int Game::score()
     {
         auto score = 0;
-        auto frame_cursor = _rolls.begin();
-        for (int frame = 0; frame < 10; frame++)
+        auto frame = _rolls.begin();
+        for (int frame_index = 0; frame_index < 10; frame_index++)
         {
-            if (is_strike(frame_cursor))
-            {
-                score += score_strike(frame_cursor);
-                frame_cursor += 1;
-            }
-            else if (is_spare(frame_cursor))
-            {
-                score += score_spare(frame_cursor);
-                frame_cursor += 2;
-            }
-            else
-            {
-                score += score_simple(frame_cursor);
-                frame_cursor += 2;
-            }
+            score += score_frame(frame);
+            frame += is_strike(frame) ? 1 : 2;
         }
         return score;
     }
 
-    int Game::score_simple(const vector<int>::const_iterator &it)
+    int Game::score_frame(Frame &frame)
     {
-        return *it + *(it + 1);
+        if (is_strike(frame))
+            return score_strike(frame);
+        else if (is_spare(frame))
+            return score_spare(frame);
+        else
+            return score_simple(frame);
     }
 
-    bool Game::is_spare(const vector<int>::const_iterator &it)
+    int Game::score_simple(Frame &frame)
     {
-        return *it + *(it + 1) == 10;
+        return *frame + *(frame + 1);
     }
 
-    int Game::score_spare(const vector<int>::const_iterator &it)
+    bool Game::is_spare(Frame &frame)
     {
-        return 10 + *(it + 2);
+        return *frame + *(frame + 1) == 10;
     }
 
-    bool Game::is_strike(const vector<int>::const_iterator &it)
+    int Game::score_spare(Frame &frame)
     {
-        return *it == 10;
+        return 10 + *(frame + 2);
     }
 
-    int Game::score_strike(const vector<int>::const_iterator &it)
+    bool Game::is_strike(Frame &frame)
     {
-        return 10 + *(it + 1) + *(it + 2);
+        return *frame == 10;
+    }
+
+    int Game::score_strike(Frame &frame)
+    {
+        return 10 + *(frame + 1) + *(frame + 2);
     }
 
     void Game::roll(int roll)
