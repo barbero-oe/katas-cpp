@@ -14,12 +14,19 @@ namespace bowling
             if (is_spare(frame_cursor)) {
                 score += score_spare(frame_cursor);
                 frame_cursor += 2;
+            } else if (is_strike(frame_cursor)) {
+                score += score_strike(frame_cursor);
+                frame_cursor += 1;
             } else {
-                score += simple_score(frame_cursor);
+                score += score_simple(frame_cursor);
                 frame_cursor += 2;
             }
         }
         return score;
+    }
+
+    int Game::score_simple(const vector<int>::const_iterator& it) {
+        return *it + *(it + 1);
     }
 
     bool Game::is_spare(const vector<int>::const_iterator& it) {
@@ -30,22 +37,12 @@ namespace bowling
         return 10 + *(it + 2);
     }
 
-    int Game::simple_score(const vector<int>::const_iterator& it) {
-        return *it + *(it + 1);
+    bool Game::is_strike(const vector<int>::const_iterator& it) {
+        return *it == 10;
     }
 
-
-
-    int Game::frame_score(int frame)
-    {
-        auto base_index = frame * 2;
-        auto first = _rolls[base_index];
-        auto second = _rolls[base_index + 1];
-
-        auto score = first + second;
-        if (score == 10)
-            score += _rolls[base_index + 2];
-        return score;
+    int Game::score_strike(const vector<int>::const_iterator& it) {
+        return 10 + *(it + 1) + *(it + 2);
     }
 
     void Game::roll(int roll)

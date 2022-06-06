@@ -8,10 +8,12 @@ namespace bowling
     private:
     std::vector<int> _rolls;
 
-    int frame_score(int);
-    int simple_score(const std::vector<int>::const_iterator&);
     bool is_spare(const std::vector<int>::const_iterator&);
+    bool is_strike(const std::vector<int>::const_iterator&);
+
+    int score_simple(const std::vector<int>::const_iterator&);
     int score_spare(const std::vector<int>::const_iterator&);
+    int score_strike(const std::vector<int>::const_iterator&);
 
     public:
         Game() {};

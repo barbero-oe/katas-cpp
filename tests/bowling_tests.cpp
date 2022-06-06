@@ -38,11 +38,18 @@ TEST_CASE("A new bowling game", "[bowling]")
         game.roll(1);
         REQUIRE(11 == game.score());
     }
-    // SECTION("when a strike is made then the score is 14") {
-    //     roll_times(game, 5, 2);
-    //     game.roll(1);
-    //     game.roll(1);
-    //     roll_times(game, 0, 17);
-    //     REQUIRE(14 == game.score());
-    // }
+    SECTION("when a strike is made then the score is 14") {
+        game.roll(10);
+        game.roll(1);
+        game.roll(1);
+        roll_times(game, 0, 17);
+        REQUIRE(14 == game.score());
+    }
+    SECTION("when a strike is made at the end then the score is 13") {
+        roll_times(game, 0, 18);
+        game.roll(10);
+        game.roll(1);
+        game.roll(1);
+        REQUIRE(12 == game.score());
+    }
 }
